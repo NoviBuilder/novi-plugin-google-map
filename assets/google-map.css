@@ -1,0 +1,9 @@
+/** Google Map */
+.google-map-markers{
+    display: none;
+}
+
+.google-map{
+    height: 400px;
+    width: 100%;
+}
