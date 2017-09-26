@@ -216,6 +216,7 @@ export default class MapSettingsBody extends Component {
                 </p>
                 <Select
                     searchable={false}
+                    clearable={false} 
                     options={this.styles} onChange={this._handleStyleChange}
                     value={this.state.style}
                 />
