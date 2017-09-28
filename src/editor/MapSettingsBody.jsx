@@ -216,7 +216,7 @@ export default class MapSettingsBody extends Component {
                 </p>
                 <Select
                     searchable={false}
-                    clearable={false} 
+                    clearable={false}
                     options={this.styles} onChange={this._handleStyleChange}
                     value={this.state.style}
                 />
@@ -252,7 +252,7 @@ export default class MapSettingsBody extends Component {
     }
 
     _renderAutocompleteList() {
-        if (!this.state.autocomplete) return null;
+        if (!this.state.autocomplete || !this.state.autocomplete.results) return null;
 
         return (
             <ul className={"google-map-plugin-autocomplete-list"}>

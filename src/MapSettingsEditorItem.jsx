@@ -109,11 +109,6 @@ function onMapSettingsSubmitAction(headerStates, bodyStates) {
             })
         }
 
-        // Change map Styles
-        if (state.style !== state.initData.style){
-            map.setOptions({styles: JSON.parse(styles)});
-        }
-
         // Change marker icon
         if (state.icon !== state.initData.icon){
             // Remove all separate added markers
