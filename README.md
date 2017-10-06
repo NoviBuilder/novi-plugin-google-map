@@ -61,7 +61,15 @@ $document.ready(function () {
             var geocoder = new google.maps.Geocoder;
             for (var i = 0; i < maps.length; i++) {
                 var zoom = parseInt(maps[i].getAttribute("data-zoom")) || 11;
-                var styles = maps[i].hasAttribute('data-styles') ? JSON.parse(maps[i].getAttribute("data-styles")) : [];
+                var styles;
+                if (maps[i].hasAttribute('data-styles')){
+                    try {
+                        styles = JSON.parse(maps[i].getAttribute("data-styles"));
+                    }
+                    catch (error){
+                        styles = [];
+                    }
+                }
                 var center = maps[i].getAttribute("data-center");
                 
                 // Initialize map
