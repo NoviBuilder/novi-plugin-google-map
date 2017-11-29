@@ -229,18 +229,18 @@ export default class MapSettingsBody extends Component {
                 >
                     <div
                         className="google-map-plugin-group-left"
-                        style={{display: "flex", alignItems: "center"}}
+                        style={{display: "flex", alignItems: "center", width: "50%"}}
                     >
-                        <p className="novi-label" style={{"margin": "0"}}>
+                        <p className="novi-label" style={{"margin": "0", maxWidth: "70%"}}>
                             {this.messages.editor.mapSettingsBody.markerIcon}
                         </p>
                         <span key={this.iconKey} style={iconStyle} onClick={this.changeIcon.bind(this, "icon")}/>
                     </div>
                     <div
                         className="google-map-plugin-group-right"
-                        style={{display: "flex", alignItems: "center"}}
+                        style={{display: "flex", alignItems: "center", width: "50%"}}
                     >
-                        <p className="novi-label" style={{"margin": "0"}}>
+                        <p className="novi-label" style={{"margin": "0", maxWidth: "70%"}}>
                             {this.messages.editor.mapSettingsBody.activeMarkerIcon}
                         </p>
                         <span

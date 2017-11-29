@@ -25,10 +25,10 @@ function onLanguageChange(plugin){
     let messages = Language.getDataByKey("novi-plugin-google-map");
     plugin.ui.editor[0].title = messages.editor.mapSettingsTitle;
     plugin.ui.editor[0].tooltip = messages.editor.mapSettingsTooltip;
-    plugin.ui.editor[0].header = <span>{messages.editor.mapSettingsHeader}</span>;
+    plugin.ui.editor[0].header[1] = <span>{messages.editor.mapSettingsHeader}</span>;
     plugin.ui.editor[1].title = messages.editor.markerSettingsTitle;
     plugin.ui.editor[1].tooltip = messages.editor.markerSettingsTooltip;
-    plugin.ui.editor[1].header = <span>{messages.editor.markerSettingsHeader}</span>;
+    plugin.ui.editor[1].header[1] = <span>{messages.editor.markerSettingsHeader}</span>;
     return plugin;
 }
 

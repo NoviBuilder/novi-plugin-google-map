@@ -274,7 +274,7 @@ export default class MarkersSettingsBody extends Component {
                 </div>
                 <div style={{textAlign: "right"}}>
                     <Button
-                        onClick={this.addMarker} messages={{"textContent": this.messages.markerSettingsBody.addMarker}} style={{marginRight: -10}}
+                        onClick={this.addMarker} messages={{"textContent": this.messages.editor.markerSettingsBody.addMarkerText}} style={{marginRight: -10}}
                     />
                 </div>
             </div>
