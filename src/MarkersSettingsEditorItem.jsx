@@ -3,7 +3,8 @@ const React = novi.react.React;
 import Body from "./editor/MarkersSettingsBody";
 
 const Icon = novi.ui.icon;
-
+const Language = novi.language;
+const messages = Language.getDataByKey("novi-plugin-google-map");
 const EditorItem = {
     trigger: <Icon>
         <svg viewBox="0 0 20 20">
@@ -15,7 +16,7 @@ const EditorItem = {
             />
         </svg>
     </Icon>,
-    tooltip: "Customize Markers",
+    tooltip: messages.editor.markerSettingsTooltip,
     header: [<Icon>
         <svg viewBox="0 0 20 20">
             <path
@@ -25,10 +26,10 @@ const EditorItem = {
                 d="M10 9c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3zM10 4c-1.103 0-2 0.897-2 2s0.897 2 2 2c1.103 0 2-0.897 2-2s-0.897-2-2-2z"
             />
         </svg>
-    </Icon>, <span>Google Map Markers Settings</span>],
+    </Icon>, <span>{messages.editor.markerSettingsHeader}</span>],
     body: [<Body/>],
     closeIcon: "submit",
-    title: "Customize Markers",
+    title: messages.editor.markerSettingsTitle,
     onSubmit: onMarkersSettingsSubmitAction,
     width: 540,
     height: 230

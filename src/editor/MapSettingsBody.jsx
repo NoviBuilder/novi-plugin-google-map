@@ -4,7 +4,7 @@ const Component = novi.react.Component;
 const React = novi.react.React;
 const Types = novi.types;
 const InputNumber = novi.ui.inputNumber;
-
+const Language = novi.language;
 export default class MapSettingsBody extends Component {
     constructor(props) {
         super(props);
@@ -156,6 +156,8 @@ export default class MapSettingsBody extends Component {
                 activeIcon
             }
         };
+
+        this.messages = Language.getDataByKey("novi-plugin-google-map")
     }
 
     render() {
@@ -191,7 +193,7 @@ export default class MapSettingsBody extends Component {
                 <div className="google-map-plugin-group" style={{display: "flex"}}>
                     <div className="google-map-plugin-group-left" style={{width: "75%", position: "relative"}}>
                         <p className="novi-label" style={{"marginTop": "0"}}>
-                            Map Center:
+                            {this.messages.editor.mapSettingsBody.mapCenter}
                         </p>
                         <Input
                             key="center" id="novi-plugin-google-map-center-input" type="text"
@@ -203,7 +205,7 @@ export default class MapSettingsBody extends Component {
                     </div>
                     <div className="google-map-plugin-group-right" style={{width: "25%", marginLeft: "15px"}}>
                         <p className="novi-label" style={{"marginTop": "0"}}>
-                            Zoom:
+                            {this.messages.editor.mapSettingsBody.zoom}
                         </p>
                         <InputNumber
                             min={0} max={18} onlyInteger={true} onChange={this._handleZoomChange}
@@ -212,7 +214,7 @@ export default class MapSettingsBody extends Component {
                     </div>
                 </div>
                 <p className="novi-label" style={{"marginTop": 15}}>
-                    Style:
+                    {this.messages.editor.mapSettingsBody.style}
                 </p>
                 <Select
                     searchable={false}
@@ -230,7 +232,7 @@ export default class MapSettingsBody extends Component {
                         style={{display: "flex", alignItems: "center"}}
                     >
                         <p className="novi-label" style={{"margin": "0"}}>
-                            Marker Icon:
+                            {this.messages.editor.mapSettingsBody.markerIcon}
                         </p>
                         <span key={this.iconKey} style={iconStyle} onClick={this.changeIcon.bind(this, "icon")}/>
                     </div>
@@ -239,7 +241,7 @@ export default class MapSettingsBody extends Component {
                         style={{display: "flex", alignItems: "center"}}
                     >
                         <p className="novi-label" style={{"margin": "0"}}>
-                            Active Marker Icon:
+                            {this.messages.editor.mapSettingsBody.activeMarkerIcon}
                         </p>
                         <span
                             key={this.activeIconKey} style={activeIconStyle}

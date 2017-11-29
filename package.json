@@ -1,6 +1,6 @@
 {
   "name": "@novi_dev/novi-plugin-google-map",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Novi Google Map Plugin",
   "main": "dist/novi-plugin-google-map.js",
   "repository": {

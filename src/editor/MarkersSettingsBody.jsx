@@ -2,7 +2,7 @@ const Input = novi.ui.input;
 const Component = novi.react.Component;
 const React = novi.react.React;
 const Button = novi.ui.button;
-
+const Language = novi.language;
 export default class MarkersSettingsBody extends Component {
     constructor(props) {
         super(props);
@@ -160,6 +160,7 @@ export default class MarkersSettingsBody extends Component {
             markers,
             initMarkers
         };
+        this.messages = Language.getDataByKey("novi-plugin-google-map")
     }
 
     render() {
@@ -266,14 +267,14 @@ export default class MarkersSettingsBody extends Component {
         return (
             <div>
                 <p className="novi-label" style={{marginTop: "0"}}>
-                    Markers:
+                    {this.messages.editor.markerSettingsBody.markers}
                 </p>
                 <div className={"google-map-plugin-markers"} onScroll={this.hideAutoCompleteBox}>
                     {this._renderMarkers()}
                 </div>
                 <div style={{textAlign: "right"}}>
                     <Button
-                        onClick={this.addMarker} messages={{"textContent": "Add Marker"}} style={{marginRight: -10}}
+                        onClick={this.addMarker} messages={{"textContent": this.messages.markerSettingsBody.addMarker}} style={{marginRight: -10}}
                     />
                 </div>
             </div>
@@ -290,7 +291,7 @@ export default class MarkersSettingsBody extends Component {
                 >
                     <div className={"google-map-plugin-marker-address"}>
                         <p className="novi-label" style={{marginTop: "0"}}>
-                            Marker Location*:
+                            {this.messages.editor.markerSettingsBody.markerLocation}
                         </p>
                         <Input
                             type="text"
@@ -301,7 +302,7 @@ export default class MarkersSettingsBody extends Component {
                     </div>
                     <div className={"google-map-plugin-marker-description"}>
                         <p className="novi-label" style={{marginTop: "0"}}>
-                            Marker Description:
+                            {this.messages.editor.markerSettingsBody.markerDescription}
                         </p>
                         <Input
                             type="text" onChange={this._handleMarkerChange.bind(this, "description", index)}
