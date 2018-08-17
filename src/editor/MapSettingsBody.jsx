@@ -5,6 +5,10 @@ const React = novi.react.React;
 const Types = novi.types;
 const InputNumber = novi.ui.inputNumber;
 const Language = novi.language;
+const Icon = novi.ui.icon;
+const Icons = novi.ui.icons;
+
+
 export default class MapSettingsBody extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +17,7 @@ export default class MapSettingsBody extends Component {
         let center = novi.element.getAttribute(props.element, 'data-center') || "New York";
         let styles = novi.element.getAttribute(props.element, 'data-styles');
         let icon = novi.element.getAttribute(props.element, 'data-icon');
+        let key = novi.element.getAttribute(props.element, 'data-key');
         let activeIcon = novi.element.getAttribute(props.element, 'data-icon-active');
         this.iconKey = new Date().getTime();
         this.activeIconKey = this.iconKey + 1;
@@ -26,6 +31,7 @@ export default class MapSettingsBody extends Component {
         this._handleZoomChange = this._handleZoomChange.bind(this);
         this.hideAutoCompleteBox = this.hideAutoCompleteBox.bind(this);
         this.onAutocompleteListItem = this.onAutocompleteListItem.bind(this);
+        this._renderInfoIcon = this._renderInfoIcon.bind(this);
         this.messages = Language.getDataByKey("novi-plugin-google-map");
         this.styles = [
             {label: this.messages.editor.mapSettingsBody.defaultStyle, value: "default"},
@@ -77,7 +83,7 @@ export default class MapSettingsBody extends Component {
             style = this.styles[this.styles.length - 1];
             customStyle = styles;
         } else {
-            novi.editor.setBodyHeight(202);
+            novi.editor.setBodyHeight(284);
         }
 
         this.commonIconStyles = {
@@ -134,6 +140,54 @@ export default class MapSettingsBody extends Component {
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+            
+            .novi-plugin-google-map-warning{
+                
+            }
+            
+            .novi-plugin-google-map-warning-icon{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            
+            .novi-plugin-google-map-warning-icon .novi-icon{
+                width: 16px;
+                height: 16px;
+            }
+            
+            
+            .novi-plugin-google-map-warning-message{
+                width: 100%;
+                position: absolute;
+                background: #1C222E;
+                z-index: 100;
+                left: 0;
+                color: #fff;
+                padding: 15px 10px;
+                box-sizing: border-box;
+                border: 1px solid #000;
+                border-radius: 3px;
+                opacity: 0;
+                pointer-events:none;
+                transition: .3s all ease;
+            }
+            
+            .novi-plugin-google-map-warning-message.active{
+                opacity: 1;
+                pointer-events:auto;
+            }
+            
+            .novi-plugin-google-map-warning-message-link{
+                color: #fff;
+            }
+            
+            .novi-plugin-google-map-warning-message-link:hover{
+                color: #109DF7;
+            }
         `;
 
         this.autoCompleteService = new props.element.google.maps.places.AutocompleteService();
@@ -146,6 +200,7 @@ export default class MapSettingsBody extends Component {
             style,
             icon,
             activeIcon,
+            key,
             element: props.element,
             initData: {
                 zoom,
@@ -153,7 +208,8 @@ export default class MapSettingsBody extends Component {
                 customStyle,
                 style,
                 icon,
-                activeIcon
+                activeIcon,
+                key
             }
         };
     }
@@ -188,7 +244,8 @@ export default class MapSettingsBody extends Component {
 
         return (
             <div>
-                <div className="google-map-plugin-group" style={{display: "flex"}}>
+                {this._renderAPIInput()}
+                <div className="google-map-plugin-group" style={{display: "flex", marginTop: 15}}>
                     <div className="google-map-plugin-group-left" style={{width: "75%", position: "relative"}}>
                         <p className="novi-label" style={{"marginTop": "0"}}>
                             {this.messages.editor.mapSettingsBody.mapCenter}
@@ -249,6 +306,43 @@ export default class MapSettingsBody extends Component {
                 </div>
             </div>
         )
+    }
+
+    _renderAPIInput(){
+        let keySupported = this.state.element.keySupported !== undefined;
+
+        return (
+            <div style={{position: "relative"}}>
+                <p className="novi-label" style={{marginTop: 0}}>
+                    {this.messages.editor.mapSettingsBody.apiKey}
+                </p>
+                {!keySupported && this._renderInfoIcon()}
+                <Input
+                    key="center" id="novi-plugin-google-map-api-key-input" type="text" disabled={!keySupported}
+                    title={""}
+                    onChange={this._handleInputChange.bind(this, "key")}
+                    value={this.state.key}
+                />
+            </div>
+        )
+    }
+
+    _renderInfoIcon(){
+        return (
+            <div className={"novi-plugin-google-map-warning"}>
+                <div className={"novi-plugin-google-map-warning-icon"} onClick={this.onInfoClick.bind(this)}>
+                    <Icon>
+                        {Icons.ICON_QUESTION_CIRCLE}
+                    </Icon>
+                </div>
+                <div ref={(infoMessage) => this.infoMessage = infoMessage} className={"novi-plugin-google-map-warning-message"}>You need  update your Google Map initialization for use new feature. You can find it on
+                    <a className="novi-plugin-google-map-warning-message-link" href="https://github.com/NoviBuilder/novi-plugin-google-map"> github</a></div>
+            </div>
+        )
+    }
+
+    onInfoClick(e){
+        this.infoMessage.classList.toggle("active")
     }
 
     _renderAutocompleteList() {
@@ -322,9 +416,9 @@ export default class MapSettingsBody extends Component {
 
     setBodyHeight(isCustom) {
         if (isCustom) {
-            novi.editor.setBodyHeight(274);
+            novi.editor.setBodyHeight(340);
         } else {
-            novi.editor.setBodyHeight(202);
+            novi.editor.setBodyHeight(284);
         }
     }
 
@@ -353,9 +447,9 @@ export default class MapSettingsBody extends Component {
 
     _handleStyleChange(value) {
         if (value.value === "custom") {
-            novi.editor.setBodyHeight(274);
+            novi.editor.setBodyHeight(340);
         } else if (this.state.style.value === "custom") {
-            novi.editor.setBodyHeight(202);
+            novi.editor.setBodyHeight(284);
         }
 
         let styles;

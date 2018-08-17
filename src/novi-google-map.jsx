@@ -7,7 +7,7 @@ const Plugin = {
     name: "novi-plugin-google-map",
     title: "Novi Google Map",
     description: "Novi Google Map description",
-    version: "1.0.1",
+    version: "1.0.2",
     dependencies: {
         "novi": "0.8.6"
     },

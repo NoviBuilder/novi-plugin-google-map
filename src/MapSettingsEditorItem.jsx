@@ -1,7 +1,6 @@
 const React = novi.react.React;
 import Body from "./editor/MapSettingsBody";
 import * as Utils from "./Utils";
-const Icons = novi.ui.icons;
 const Icon = novi.ui.icon;
 const Language = novi.language;
 const messages = Language.getDataByKey("novi-plugin-google-map");
@@ -22,7 +21,7 @@ const EditorItem = {
     title: messages.editor.mapSettingsTitle,
     onSubmit: onMapSettingsSubmitAction,
     width: 340,
-    height: 274
+    height: 340
 };
 
 export default EditorItem;
@@ -35,8 +34,10 @@ function onMapSettingsSubmitAction(headerStates, bodyStates) {
         style: state.style,
         customStyle: state.customStyle,
         icon: state.icon,
-        activeIcon: state.activeIcon
+        activeIcon: state.activeIcon,
+        key: state.key
     };
+    let reload = false;
 
     if ( novi.utils.lodash.isEqual(saveState, state.initData)) return;
 
@@ -62,6 +63,17 @@ function onMapSettingsSubmitAction(headerStates, bodyStates) {
             state.element.setAttribute("data-styles", state.style.value);
             styles = state.style.value;
             break;
+    }
+
+    if (state.key !== state.initData.key){
+        reload = true;
+
+        if (state.key.length > 0){
+            novi.element.setAttribute(state.element, "data-key", state.key);
+        }else{
+            novi.element.removeAttribute(state.element, "data-key");
+        }
+
     }
 
     if (state.icon !== state.initData.icon){
@@ -95,7 +107,7 @@ function onMapSettingsSubmitAction(headerStates, bodyStates) {
     }
 
 
-    if (state.element.map && state.element.geocoder && state.element.google){
+    if (state.element.map && state.element.geocoder && state.element.google && !reload){
         let map = state.element.map;
 
         // Change map zoom

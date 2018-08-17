@@ -29,7 +29,7 @@ Copy the "assets/rd-facebook.js" and "assets/rd-facebook.css" to website's JS an
 Add basic Google Map HTML Layout:
 
 ```html
-<div class="google-map-container" data-zoom="16" data-center="New York, NY, United States">
+<div class="google-map-container" data-key="YOUR_API_KEY" data-zoom="16" data-center="New York, NY, United States">
     <div class="google-map"></div>
     <ul class="google-map-markers">
     </ul>
@@ -47,7 +47,16 @@ Add basic Google Map HTML Layout:
 $document.ready(function () {
     var maps = document.querySelectorAll(".google-map-container");
     if (maps.length) {
-        $.getScript("//maps.google.com/maps/api/js?key=AIzaSyAwH60q5rWrS8bXwpkZwZwhw9Bw0pqKTZM&sensor=false&libraries=geometry,places&v=3.7", function () {
+        var key;
+
+        for ( var i = 0; i < maps.length; i++ ) {
+                if (maps[i].hasAttribute( "data-key" ) ) {
+                    key = maps[i].getAttribute( "data-key" );
+                    break;
+                }
+        }
+
+        $.getScript('//maps.google.com/maps/api/js?'+ ( key ? 'key='+ key + '&' : '' ) +'sensor=false&libraries=geometry,places&v=quarterly', function () {
             var head = document.getElementsByTagName('head')[0],
                     insertBefore = head.insertBefore;
     
@@ -82,6 +91,7 @@ $document.ready(function () {
                 // Add map object to map node
                 maps[i].map = map;
                 maps[i].geocoder = geocoder;
+                maps[i].keySupported = true;
                 maps[i].google = google;
                 
                 // Get Center coordinates from attribute
