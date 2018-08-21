@@ -336,7 +336,7 @@ export default class MapSettingsBody extends Component {
                     </Icon>
                 </div>
                 <div ref={(infoMessage) => this.infoMessage = infoMessage} className={"novi-plugin-google-map-warning-message"}>You need  update your Google Map initialization for use new feature. You can find it on
-                    <a className="novi-plugin-google-map-warning-message-link" href="https://github.com/NoviBuilder/novi-plugin-google-map"> github</a></div>
+                    <a className="novi-plugin-google-map-warning-message-link" href="https://github.com/NoviBuilder/novi-plugin-google-map" target="_blank"> github</a></div>
             </div>
         )
     }
